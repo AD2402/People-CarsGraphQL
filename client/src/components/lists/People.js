@@ -12,6 +12,7 @@ const getStyles = () => ({
   },
 })
 
+
 const People = () => {
   const styles = getStyles()
 
@@ -21,6 +22,7 @@ const People = () => {
 
   return (
     <>
+    <div style={{ borderTop: '1px solid grey', width:'100%' }}></div>
       <PageHeader title="Records" />
       <List grid={{ gutter: 20, column: 1 }} style={styles.list}>
         <List.Item>
