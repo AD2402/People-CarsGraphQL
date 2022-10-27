@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GET_PERSON_WITH_CARS, GET_PERSON } from "../../queries";
 import { List } from "antd";
 import { useParams, Link } from "react-router-dom";
+import Car from "../listItems/Car";
 
 const getStyles = () => ({
   card: {
@@ -13,38 +14,41 @@ const getStyles = () => ({
 const PeopleWithCars = () => {
   const styles = getStyles();
 
-  let { personId } = useParams();
+  let { id } = useParams();
 
-  console.log(personId);
-
-  const { loading, error, data } = useQuery(GET_PERSON, {
-    variables: { personId },
+  const { loading, error, data } = useQuery(GET_PERSON_WITH_CARS, {
+    variables: { id: id },
   });
 
-  const { loading2, error2, data2 } = useQuery(GET_PERSON_WITH_CARS, {
-    variables: { personId },
-  });
+  if (loading) return "Loading...";
+  if (error) return `Error! ${error.message}`;
+
+  // console.log(data);
 
   return (
     <div className="People">
-      <h1>Person ID : {personId}</h1>
+      <Link to={`/`}>GO BACK HOME</Link>
+      <h1>Person ID : {id}</h1>
       {loading ? (
         <h1>Still Loading</h1>
       ) : (
         <Card style={styles.card}>
-          {data.person.firstName} {data.person.lastName}
+          {data.findPersonById.firstName} {data.findPersonById.lastName}
           <List grid={{ gutter: 20, column: 1 }} style={styles.list}></List>
-          {data2.personWithCars.map(({ id, year, make, model }) => (
-            <List.Item key={id}>
-              <Card type="inner" title={`${make} ${model}`}>
-                Year: {year}
-              </Card>
+          {data.personCars.map((id) => (
+            <List.Item key={id.id}>
+              <Car
+                id={id.id}
+                year={id.year}
+                make={id.make}
+                model={id.model}
+                price={id.price}
+                personId={id.personId}
+              />
             </List.Item>
           ))}
         </Card>
       )}
-
-      <Link to={`/`}>GO BACK HOME</Link>
     </div>
   );
 };

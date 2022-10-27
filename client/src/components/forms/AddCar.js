@@ -17,6 +17,8 @@ const AddCar = () => {
   const { Option } = Select;
   const { data } = useQuery(GET_PEOPLE);
 
+  // console.log(data);
+
   const [form] = Form.useForm();
   const [, forceUpdate] = useState();
 
@@ -25,7 +27,8 @@ const AddCar = () => {
   }, []);
 
   const onFinish = (values) => {
-    const { year, make, model, price, personId } = values;
+    let { year, make, model, price, personId } = values;
+    // console.log(values);
     year = parseInt(year);
     price = parseFloat(price);
 
@@ -69,7 +72,7 @@ const AddCar = () => {
           name="year"
           rules={[{ required: true, message: "Please input the year!" }]}
         >
-          <InputNumber placeholder="i.e. 2022" width="small" />
+          <Input placeholder="i.e. 2022" width="small" />
         </Form.Item>
         <Form.Item
           style={styles.inputField}
@@ -93,7 +96,7 @@ const AddCar = () => {
           name="price"
           rules={[{ required: true, message: "Please input the price!" }]}
         >
-          <InputNumber placeholder="i.e. 50000" precision={2} step={0.1} />
+          <Input placeholder="i.e. 50000" precision={2} step={0.1} />
         </Form.Item>
         <Form.Item
           style={styles.inputField}
@@ -103,9 +106,9 @@ const AddCar = () => {
         >
           <Select placeholder="Select a person">
             {data
-              ? data.people.map((person) => (
-                  <Option key={person.id} value={String(person.id)}>
-                    {person.firstName} {person.lastName}
+              ? data.people.map((id) => (
+                  <Option key={id.id} value={String(id.id)}>
+                    {id.firstName} {id.lastName}
                   </Option>
                 ))
               : null}

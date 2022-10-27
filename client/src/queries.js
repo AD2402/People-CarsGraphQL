@@ -56,10 +56,10 @@ export const GET_CARS = gql`
 export const ADD_CAR = gql`
   mutation AddCar(
     $id: String!
-    $year: String!
+    $year: Int!
     $make: String!
     $model: String!
-    $price: String!
+    $price: Float!
     $personId: String!
   ) {
     addCar(
@@ -96,10 +96,10 @@ export const REMOVE_CAR = gql`
 export const UPDATE_CAR = gql`
   mutation UpdateCar(
     $id: String!
-    $year: String!
+    $year: Int!
     $make: String!
     $model: String!
-    $price: String!
+    $price: Float!
     $personId: String!
   ) {
     updateCar(
@@ -120,19 +120,6 @@ export const UPDATE_CAR = gql`
   }
 `;
 
-export const GET_PERSON_WITH_CARS = gql`
-  query Query($personId: String!) {
-    personWithCars(personId: $personId) {
-      id
-      year
-      make
-      model
-      price
-      personId
-    }
-  }
-`;
-
 export const GET_PERSON = gql`
   query Query($personId: String!) {
     person(id: $personId) {
@@ -143,20 +130,33 @@ export const GET_PERSON = gql`
   }
 `;
 
-export const GET_PERSON_WITH_CAR = gql`
-  query Person($id: String!) {
-    person(id: $id) {
+export const GET_PERSON_WITH_CARS = gql`
+  query Query($id: String!) {
+    findPersonById(id: $id) {
       id
-      lastName
       firstName
-      cars {
-        id
-        model
-        year
-        make
-        price
-        personId
-      }
+      lastName
+    }
+    personCars(personId: $id) {
+      id
+      year
+      make
+      model
+      price
+      personId
+    }
+  }
+`;
+
+export const REMOVE_CARS_BY_PERSON = gql`
+  mutation Query($personId: String!) {
+    removeCars(personId: $personId) {
+      id
+      make
+      model
+      year
+      price
+      personId
     }
   }
 `;
