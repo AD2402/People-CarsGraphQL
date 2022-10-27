@@ -43,3 +43,13 @@
 .ant-card.ant-card-bordered {
   margin-bottom: 100px;
 }
+
+
+.People {
+ 
+  display: flex;
+  flex-flow: column wrap;
+
+  align-content: center;
+  margin-top: 3rem;
+}

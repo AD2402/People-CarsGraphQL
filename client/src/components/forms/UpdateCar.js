@@ -1,12 +1,19 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Button, Form, Input, Select } from "antd";
 import { useEffect, useState } from "react";
-import { GET_CARS, UPDATE_CAR } from "../../queries";
+import { GET_PEOPLE, UPDATE_CAR } from "../../queries";
+
+const getStyles = () => ({
+  inputField: {
+    margin: "30px",
+  },
+});
 
 const UpdateCar = (props) => {
   const { id, year, make, model, price, personId } = props;
   const [updateCar] = useMutation(UPDATE_CAR);
   const { Option } = Select;
+  const styles = getStyles();
 
   const [form] = Form.useForm();
   const [, forceUpdate] = useState();
@@ -15,12 +22,14 @@ const UpdateCar = (props) => {
     forceUpdate({});
   }, []);
 
-  const { loading, error, data } = useQuery(GET_CARS);
+  const { loading, error, data } = useQuery(GET_PEOPLE);
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
+  // console.log(data);
+
   const onFinish = (values) => {
-    const { year, make, model, price, personId } = values;
+    let { year, make, model, price, personId } = values;
     year = parseInt(year);
     price = parseFloat(price);
 
@@ -50,6 +59,7 @@ const UpdateCar = (props) => {
         price: price,
         personId: personId,
       }}
+      style={styles.inputField}
     >
       <Form.Item
         name="year"
@@ -82,9 +92,9 @@ const UpdateCar = (props) => {
       >
         <Select placeholder="Select a person">
           {data
-            ? data.people.map((person) => (
-                <Option key={person.id} value={String(person.id)}>
-                  {person.firstName} {person.lastName}
+            ? data.people.map((id) => (
+                <Option key={id.id} value={String(id.id)}>
+                  {id.firstName} {id.lastName}
                 </Option>
               ))
             : null}
@@ -100,7 +110,8 @@ const UpdateCar = (props) => {
               (!form.isFieldTouched("year") &&
                 !form.isFieldTouched("make") &&
                 !form.isFieldTouched("model") &&
-                !form.isFieldTouched("price")) ||
+                !form.isFieldTouched("price") &&
+                !form.isFieldTouched("personId")) ||
               form.getFieldsError().filter(({ errors }) => errors.length).length
             }
           >

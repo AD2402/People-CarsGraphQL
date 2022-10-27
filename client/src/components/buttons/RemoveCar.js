@@ -19,7 +19,7 @@ const RemoveCar = ({ id }) => {
   });
 
   const handleButtonClick = () => {
-    let result = window.confirm("Are you sure you want to delete this person?");
+    let result = window.confirm("Are you sure you want to delete this car?");
 
     if (result) {
       removeCar({
