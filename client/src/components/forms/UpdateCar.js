@@ -1,50 +1,41 @@
-import { useMutation, useQuery } from "@apollo/client";
-import { Button, Form, Input, Select } from "antd";
-import { useEffect, useState } from "react";
-import { GET_PEOPLE, UPDATE_CAR } from "../../queries";
+import { useMutation, useQuery } from '@apollo/client'
+import { Button, Form, Input, Select } from 'antd'
+import { useEffect, useState } from 'react'
+import { GET_PEOPLE, UPDATE_CAR } from '../../queries'
 
 const getStyles = () => ({
   inputField: {
-    margin: "30px",
+    margin: '30px',
   },
-});
+})
 
 const UpdateCar = (props) => {
-  const { id, year, make, model, price, personId } = props;
-  const [updateCar] = useMutation(UPDATE_CAR);
-  const { Option } = Select;
-  const styles = getStyles();
+  const { id, year, make, model, price, personId } = props
+  const [updateCar] = useMutation(UPDATE_CAR)
+  const { Option } = Select
+  const styles = getStyles()
 
-  const [form] = Form.useForm();
-  const [, forceUpdate] = useState();
+  const [form] = Form.useForm()
+  const [, forceUpdate] = useState()
 
   useEffect(() => {
-    forceUpdate({});
-  }, []);
+    forceUpdate({})
+  }, [])
 
-  const { loading, error, data } = useQuery(GET_PEOPLE);
-  if (loading) return "Loading...";
-  if (error) return `Error! ${error.message}`;
-
-  // console.log(data);
+  const { loading, error, data } = useQuery(GET_PEOPLE)
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
 
   const onFinish = (values) => {
-    let { year, make, model, price, personId } = values;
-    year = parseInt(year);
-    price = parseFloat(price);
+    let { year, make, model, price, personId } = values
+    year = parseInt(year)
+    price = parseFloat(price)
 
     updateCar({
-      variables: {
-        id,
-        year,
-        make,
-        model,
-        price,
-        personId,
-      },
-    });
-    props.onButtonClick();
-  };
+      variables: { id, year, make, model, price, personId },
+    })
+    props.onButtonClick()
+  }
 
   return (
     <Form
@@ -62,59 +53,50 @@ const UpdateCar = (props) => {
       style={styles.inputField}
     >
       <Form.Item
+        label="Year"
         name="year"
-        rules={[{ required: true, message: "Please input the year!" }]}
+        rules={[{ required: true, message: 'Please input the year!' }]}
       >
         <Input placeholder="i.e. 2022" />
       </Form.Item>
       <Form.Item
+        label="Make"
         name="make"
-        rules={[{ required: true, message: "Please input the make!" }]}
+        rules={[{ required: true, message: 'Please input the make!' }]}
       >
         <Input placeholder="i.e. Ford" />
       </Form.Item>
       <Form.Item
+        label="Model"
         name="model"
-        rules={[{ required: true, message: "Please input the model!" }]}
+        rules={[{ required: true, message: 'Please input the model!' }]}
       >
         <Input placeholder="i.e. Mustang" />
       </Form.Item>
       <Form.Item
+        label="Price"
         name="price"
-        rules={[{ required: true, message: "Please input the price!" }]}
+        rules={[{ required: true, message: 'Please input the price!' }]}
       >
         <Input placeholder="i.e. 50000" />
       </Form.Item>
       <Form.Item
         label="Car Owner"
         name="personId"
-        rules={[{ required: true, message: "Please input owner name" }]}
+        rules={[{ required: true, message: 'Please input owner name' }]}
       >
-        <Select placeholder="Select a person">
-          {data
-            ? data.people.map((id) => (
-                <Option key={id.id} value={String(id.id)}>
-                  {id.firstName} {id.lastName}
-                </Option>
-              ))
-            : null}
+        <Select>
+          {data.people.map(({ id, firstName, lastName }) => (
+            <Option value={id} key={id}>
+              {firstName} {lastName}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
 
       <Form.Item shouldUpdate={true}>
         {() => (
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={
-              (!form.isFieldTouched("year") &&
-                !form.isFieldTouched("make") &&
-                !form.isFieldTouched("model") &&
-                !form.isFieldTouched("price") &&
-                !form.isFieldTouched("personId")) ||
-              form.getFieldsError().filter(({ errors }) => errors.length).length
-            }
-          >
+          <Button type="primary" htmlType="submit">
             Update Car
           </Button>
         )}
@@ -123,7 +105,7 @@ const UpdateCar = (props) => {
         Cancel
       </Button>
     </Form>
-  );
-};
+  )
+}
 
-export default UpdateCar;
+export default UpdateCar

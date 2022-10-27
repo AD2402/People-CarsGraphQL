@@ -1,31 +1,29 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { EditOutlined } from "@ant-design/icons";
-import { Card } from "antd";
-import RemoveCar from "../buttons/RemoveCar";
-import UpdateCar from "../forms/UpdateCar";
-const formatter = new Intl.NumberFormat("en-CA", {
-  style: "currency",
-  currency: "CAD",
-});
-
-// console.log(formatter.format(2500)); /* $2,500.00 */
+import { EditOutlined } from '@ant-design/icons'
+import { Card } from 'antd'
+import RemoveCar from '../buttons/RemoveCar'
+import UpdateCar from '../forms/UpdateCar'
+const formatter = new Intl.NumberFormat('en-CA', {
+  style: 'currency',
+  currency: 'CAD',
+})
 
 const getStyles = () => ({
   card: {
-    width: "500px",
-    margin: "10px",
+    width: '500px',
+    margin: '10px',
   },
-});
+})
 
 const Car = (props) => {
-  const { id, year, model, make, price, personId } = props;
+  const { id, year, model, make, price, personId } = props
 
-  const styles = getStyles();
+  const styles = getStyles()
 
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(false)
 
-  const handleButtonClick = () => setEditMode(!editMode);
+  const handleButtonClick = () => setEditMode(!editMode)
 
   return (
     <>
@@ -52,7 +50,7 @@ const Car = (props) => {
         ></Card>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Car;
+export default Car

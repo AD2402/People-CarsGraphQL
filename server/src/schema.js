@@ -174,18 +174,6 @@ const resolvers = {
       people.push(newPerson);
       return newPerson;
     },
-    addCar: (root, args) => {
-      const newCar = {
-        id: args.id,
-        year: args.year,
-        make: args.make,
-        model: args.model,
-        price: args.price,
-        personId: args.personId,
-      };
-      cars.push(newCar);
-      return newCar;
-    },
     updatePerson: (root, args) => {
       const person = find(people, { id: args.id });
 
@@ -198,6 +186,29 @@ const resolvers = {
 
       return person;
     },
+    removePerson: (root, args) => {
+      const removedPerson = find(people, { id: args.id });
+      if (!removedPerson) {
+        throw new Error("Could not find person with id " + args.id);
+      }
+      remove(people, (person) => {
+        return person.id === removedPerson.id;
+      });
+      return removedPerson;
+    },
+    addCar: (root, args) => {
+      const newCar = {
+        id: args.id,
+        year: args.year,
+        make: args.make,
+        model: args.model,
+        price: args.price,
+        personId: args.personId,
+      };
+      cars.push(newCar);
+      return newCar;
+    },
+
     updateCar: (root, args) => {
       const car = find(cars, { id: args.id });
 
@@ -211,16 +222,7 @@ const resolvers = {
       car.personId = args.personId;
       return car;
     },
-    removePerson: (root, args) => {
-      const removedPerson = find(people, { id: args.id });
-      if (!removedPerson) {
-        throw new Error("Could not find person with id " + args.id);
-      }
-      remove(people, (person) => {
-        return person.id === removedPerson.id;
-      });
-      return removedPerson;
-    },
+
     removeCar: (root, args) => {
       const removedCar = find(cars, { id: args.id });
       if (!removedCar) {

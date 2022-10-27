@@ -1,21 +1,21 @@
-import { useMutation } from "@apollo/client";
-import { Button, Form, Input } from "antd";
-import { useEffect, useState } from "react";
-import { UPDATE_PERSON } from "../../queries";
+import { useMutation } from '@apollo/client'
+import { Button, Form, Input } from 'antd'
+import { useEffect, useState } from 'react'
+import { UPDATE_PERSON } from '../../queries'
 
 const UpdatePerson = (props) => {
-  const { firstName, lastName, id } = props;
-  const [updatePerson] = useMutation(UPDATE_PERSON);
+  const { firstName, lastName, id } = props
+  const [updatePerson] = useMutation(UPDATE_PERSON)
 
-  const [form] = Form.useForm();
-  const [, forceUpdate] = useState();
+  const [form] = Form.useForm()
+  const [, forceUpdate] = useState()
 
   useEffect(() => {
-    forceUpdate({});
-  }, []);
+    forceUpdate({})
+  }, [])
 
   const onFinish = (values) => {
-    const { firstName, lastName } = values;
+    const { firstName, lastName } = values
 
     updatePerson({
       variables: {
@@ -23,9 +23,9 @@ const UpdatePerson = (props) => {
         firstName,
         lastName,
       },
-    });
-    props.onButtonClick();
-  };
+    })
+    props.onButtonClick()
+  }
 
   return (
     <Form
@@ -40,15 +40,15 @@ const UpdatePerson = (props) => {
     >
       <Form.Item
         name="firstName"
-        rules={[{ required: true, message: "Please input your first name!" }]}
+        rules={[{ required: true, message: 'Please input your first name!' }]}
       >
-        <Input placeholder="i.e. Indiana" />
+        <Input placeholder="i.e. John" />
       </Form.Item>
       <Form.Item
         name="lastName"
-        rules={[{ required: true, message: "Please input your last name!" }]}
+        rules={[{ required: true, message: 'Please input your last name!' }]}
       >
-        <Input placeholder="i.e. Jones" />
+        <Input placeholder="i.e. Doe" />
       </Form.Item>
       <Form.Item shouldUpdate={true}>
         {() => (
@@ -56,8 +56,8 @@ const UpdatePerson = (props) => {
             type="primary"
             htmlType="submit"
             disabled={
-              (!form.isFieldTouched("firstName") &&
-                !form.isFieldTouched("lastName")) ||
+              (!form.isFieldTouched('firstName') &&
+                !form.isFieldTouched('lastName')) ||
               form.getFieldsError().filter(({ errors }) => errors.length).length
             }
           >
@@ -69,7 +69,7 @@ const UpdatePerson = (props) => {
         Cancel
       </Button>
     </Form>
-  );
-};
+  )
+}
 
-export default UpdatePerson;
+export default UpdatePerson
