@@ -1,9 +1,8 @@
 import { Card } from 'antd'
 import { useQuery } from '@apollo/client'
-import { GET_PERSON_WITH_CARS, GET_PERSON } from '../../queries'
+import { GET_PERSON_WITH_CARS,  } from '../../queries'
 import { List } from 'antd'
 import { useParams, Link } from 'react-router-dom'
-import Car from '../listItems/Car'
 
 const getStyles = () => ({
   card: {
@@ -23,7 +22,6 @@ const PeopleWithCars = () => {
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
 
-  // console.log(data);
 
   return (
     <div className="People">

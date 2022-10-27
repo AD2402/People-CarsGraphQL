@@ -149,16 +149,3 @@ export const REMOVE_CAR = gql `
     }
   }
 `;
-
-export const REMOVE_CARS_BY_PERSON = gql `
-  mutation Query($personId: String!) {
-    removeCars(personId: $personId) {
-      id
-      make
-      model
-      year
-      price
-      personId
-    }
-  }
-`;

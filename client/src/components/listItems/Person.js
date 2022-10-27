@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { EditOutlined } from '@ant-design/icons'
-import { Card, PageHeader } from 'antd'
+import { Card } from 'antd'
 import RemovePerson from '../buttons/RemovePerson'
 import UpdatePerson from '../forms/UpdatePerson'
 import Cars from '../lists/Cars'
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 const getStyles = () => ({
   card: {
-    width: '500px',
+    width: '700px',
   },
 })
 const Person = (props) => {

@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { Button, Form, Input, PageHeader } from 'antd'
 import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -38,6 +38,7 @@ const AddPerson = () => {
   }
   return (
     <>
+    <div style={{ borderTop: '1px solid grey', width:'100%' }}></div>
       <PageHeader title="Add Person" />
       <Form
         form={form}

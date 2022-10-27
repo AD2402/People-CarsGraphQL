@@ -4,6 +4,8 @@ import { EditOutlined } from '@ant-design/icons'
 import { Card } from 'antd'
 import RemoveCar from '../buttons/RemoveCar'
 import UpdateCar from '../forms/UpdateCar'
+
+
 const formatter = new Intl.NumberFormat('en-CA', {
   style: 'currency',
   currency: 'CAD',
@@ -11,7 +13,7 @@ const formatter = new Intl.NumberFormat('en-CA', {
 
 const getStyles = () => ({
   card: {
-    width: '500px',
+    width: '700px',
     margin: '10px',
   },
 })

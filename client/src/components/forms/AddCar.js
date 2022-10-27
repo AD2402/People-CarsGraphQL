@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client'
-import { Button, Form, Input, InputNumber, PageHeader, Select } from 'antd'
+import { Button, Form, Input, PageHeader, Select } from 'antd'
 import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { ADD_CAR, GET_CARS, GET_PEOPLE } from '../../queries'
@@ -55,7 +55,8 @@ const AddCar = () => {
   }
   return (
     <>
-      <PageHeader title="Add Car" />
+    <div style={{ borderTop: '1px solid grey', width:'100%' }}></div>
+      <PageHeader  title="Add Car" />
 
       <Form
         form={form}
